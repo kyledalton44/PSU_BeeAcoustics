@@ -23,21 +23,49 @@ t = (0:N-1).'.*dt; %column-oriented time vector [sec]
 
 %This data theoretically has 4 channels....plot em
 figure
-plot(t,data(:,1),'b:','LineWidth',1.5)
-hold on
-plot(t,data(:,2),'g:','LineWidth',1.5)
-plot(t,data(:,3),'k--','LineWidth',1.5)
-plot(t,data(:,4),'r--','LineWidth',1.5)
+tiledlayout(4,1)
 
+ax1 = nexttile;
+plot(t,data(:,1),'b','LineWidth',1.5)
 xlabel('Time [sec]','FontSize',14,'FontWeight','bold')
 set(get(gca, 'XAxis'), 'FontWeight', 'bold', 'FontSize', 14);
 ylabel('Amplitude [WU]','FontSize',14,'FontWeight','bold')
 set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
-
 title('Voltage vs. Time','FontSize',14,'FontWeight','bold')
-
-legend('Channel 1','Channel 2','Channel 3', 'Channel 4');
+legend('Channel 1');
 grid on
+
+ax2 = nexttile;
+plot(t,data(:,2),'g','LineWidth',1.5)
+xlabel('Time [sec]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'XAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+ylabel('Amplitude [WU]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+title('Voltage vs. Time','FontSize',14,'FontWeight','bold')
+legend('Channel 1');
+grid on
+
+ax3 = nexttile;
+plot(t,data(:,3),'k','LineWidth',1.5)
+xlabel('Time [sec]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'XAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+ylabel('Amplitude [WU]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+title('Voltage vs. Time','FontSize',14,'FontWeight','bold')
+legend('Channel 3');
+grid on
+
+ax4 = nexttile;
+plot(t,data(:,4),'r','LineWidth',1.5)
+xlabel('Time [sec]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'XAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+ylabel('Amplitude [WU]','FontSize',14,'FontWeight','bold')
+set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
+title('Voltage vs. Time','FontSize',14,'FontWeight','bold')
+legend('Channel 4');
+grid on
+
+linkaxes([ax1 ax2 ax3 ax4],'xy')
 
 %% Initial thoughts
 
@@ -112,7 +140,7 @@ tiledlayout(2,2)
 % freqLim = singleSideMax./1e3; %one full side
 freqLim = 8;
 
-nexttile
+ax1 = nexttile;
 imagesc(t,freqVec./1e3,10.*log10(Sxx(:,:,1)))
 ylabel('Frequency [kHz]')
 set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
@@ -125,7 +153,7 @@ clrbr = colorbar;
 clrbr.Label.String = 'dB ref. 1';
 axis xy
 
-nexttile
+ax2 = nexttile;
 imagesc(t,freqVec./1e3,10.*log10(Sxx(:,:,2)))
 ylabel('Frequency [kHz]')
 set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
@@ -138,7 +166,7 @@ clrbr = colorbar;
 clrbr.Label.String = 'dB ref. 1';
 axis xy
 
-nexttile
+ax3 = nexttile;
 imagesc(t,freqVec./1e3,10.*log10(Sxx(:,:,3)))
 ylabel('Frequency [kHz]')
 set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
@@ -151,7 +179,7 @@ clrbr = colorbar;
 clrbr.Label.String = 'dB ref. 1';
 axis xy
 
-nexttile
+ax4 = nexttile;
 imagesc(t,freqVec./1e3,10.*log10(Sxx(:,:,4)))
 ylabel('Frequency [kHz]')
 set(get(gca, 'YAxis'), 'FontWeight', 'bold', 'FontSize', 14);
@@ -164,3 +192,4 @@ clrbr = colorbar;
 clrbr.Label.String = 'dB ref. 1';
 axis xy
 
+linkaxes([ax1 ax2 ax3 ax4],'xy')
